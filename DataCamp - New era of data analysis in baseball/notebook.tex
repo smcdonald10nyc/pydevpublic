@@ -1,0 +1,786 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{notebook}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{the-statcast-revolution}{%
+\subsection{1. The Statcast revolution}\label{the-statcast-revolution}}
+
+This is Aaron Judge. Judge is one of the physically largest players in
+Major League Baseball standing 6 feet 7 inches (2.01 m) tall and
+weighing 282 pounds (128 kg). He also hit the hardest home run ever
+recorded. How do we know this? Statcast.
+
+Statcast is a state-of-the-art tracking system that uses high-resolution
+cameras and radar equipment to measure the precise location and movement
+of baseballs and baseball players. Introduced in 2015 to all 30 major
+league ballparks, Statcast data is revolutionizing the game. Teams are
+engaging in an ``arms race'' of data analysis, hiring analysts left and
+right in an attempt to gain an edge over their competition. This video
+describing the system is incredible.
+
+In this notebook, we'll wrangle, analyze, and visualize Statcast data to
+compare Mr.~Judge and another (extremely large) teammate of his. Let's
+start by loading the data into our Notebook. There are two CSV files,
+judge.csv and stanton.csv, both of which contain Statcast data for
+2015-2017. We'll use pandas DataFrames to store this data. Let's also
+load data visualization libraries, matplotlib and seaborn.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} import datavis libraries and pandas}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{c+c1}{\PYZsh{} Load Aaron Judge\PYZsq{}s Statcast data}
+        \PY{n}{judge} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{datasets/judge.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Load Giancarlo Stanton\PYZsq{}s Statcast data}
+        \PY{n}{stanton} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{datasets/stanton.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{what-can-statcast-measure}{%
+\subsection{2. What can Statcast
+measure?}\label{what-can-statcast-measure}}
+
+The better question might be, what can't Statcast measure?
+
+Starting with the pitcher, Statcast can measure simple data points such
+as velocity. At the same time, Statcast digs a whole lot deeper, also
+measuring the release point and spin rate of every pitch.
+
+Moving on to hitters, Statcast is capable of measuring the exit
+velocity, launch angle and vector of the ball as it comes off the bat.
+From there, Statcast can also track the hang time and projected distance
+that a ball travels.
+
+Let's inspect the last five rows of the judge DataFrame. You'll see that
+each row represents one pitch thrown to a batter. You'll also see that
+some columns have esoteric names. If these don't make sense now, don't
+worry. The relevant ones will be explained as necessary.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Display all columns (pandas will collapse some columns if we don\PYZsq{}t set this option)}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{set\PYZus{}option}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{display.max\PYZus{}columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Display the last five rows of the Aaron Judge file}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{judge}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+     pitch\_type   game\_date  release\_speed  release\_pos\_x  release\_pos\_z  \textbackslash{}
+3431         CH  2016-08-13           85.6        -1.9659         5.9113   
+3432         CH  2016-08-13           87.6        -1.9318         5.9349   
+3433         CH  2016-08-13           87.2        -2.0285         5.8656   
+3434         CU  2016-08-13           79.7        -1.7108         6.1926   
+3435         FF  2016-08-13           93.2        -1.8476         6.0063   
+
+      player\_name  batter  pitcher    events          description  spin\_dir  \textbackslash{}
+3431  Aaron Judge  592450   542882       NaN                 ball       NaN   
+3432  Aaron Judge  592450   542882  home\_run  hit\_into\_play\_score       NaN   
+3433  Aaron Judge  592450   542882       NaN                 ball       NaN   
+3434  Aaron Judge  592450   542882       NaN                 foul       NaN   
+3435  Aaron Judge  592450   542882       NaN        called\_strike       NaN   
+
+      spin\_rate\_deprecated  break\_angle\_deprecated  break\_length\_deprecated  \textbackslash{}
+3431                   NaN                     NaN                      NaN   
+3432                   NaN                     NaN                      NaN   
+3433                   NaN                     NaN                      NaN   
+3434                   NaN                     NaN                      NaN   
+3435                   NaN                     NaN                      NaN   
+
+      zone                                                des game\_type stand  \textbackslash{}
+3431  14.0                                                NaN         R     R   
+3432   4.0  Aaron Judge homers (1) on a fly ball to center{\ldots}         R     R   
+3433  14.0                                                NaN         R     R   
+3434   4.0                                                NaN         R     R   
+3435   8.0                                                NaN         R     R   
+
+     p\_throws home\_team away\_team type  hit\_location   bb\_type  balls  \textbackslash{}
+3431        R       NYY        TB    B           NaN       NaN      0   
+3432        R       NYY        TB    X           NaN  fly\_ball      1   
+3433        R       NYY        TB    B           NaN       NaN      0   
+3434        R       NYY        TB    S           NaN       NaN      0   
+3435        R       NYY        TB    S           NaN       NaN      0   
+
+      strikes  game\_year     pfx\_x     pfx\_z  plate\_x  plate\_z  on\_3b  on\_2b  \textbackslash{}
+3431        0       2016 -0.379108  0.370567    0.739    1.442    NaN    NaN   
+3432        2       2016 -0.295608  0.320400   -0.419    3.273    NaN    NaN   
+3433        2       2016 -0.668575  0.198567    0.561    0.960    NaN    NaN   
+3434        1       2016  0.397442 -0.614133   -0.803    2.742    NaN    NaN   
+3435        0       2016 -0.823050  1.623300   -0.273    2.471    NaN    NaN   
+
+      on\_1b  outs\_when\_up  inning inning\_topbot    hc\_x   hc\_y  \textbackslash{}
+3431    NaN             0       5           Bot     NaN    NaN   
+3432    NaN             2       2           Bot  130.45  14.58   
+3433    NaN             2       2           Bot     NaN    NaN   
+3434    NaN             2       2           Bot     NaN    NaN   
+3435    NaN             2       2           Bot     NaN    NaN   
+
+      tfs\_deprecated  tfs\_zulu\_deprecated  pos2\_person\_id  umpire  \textbackslash{}
+3431             NaN                  NaN        571912.0     NaN   
+3432             NaN                  NaN        571912.0     NaN   
+3433             NaN                  NaN        571912.0     NaN   
+3434             NaN                  NaN        571912.0     NaN   
+3435             NaN                  NaN        571912.0     NaN   
+
+              sv\_id    vx0      vy0    vz0     ax      ay      az  sz\_top  \textbackslash{}
+3431  160813\_144259  6.960 -124.371 -4.756 -2.821  23.634 -30.220    3.93   
+3432  160813\_135833  4.287 -127.452 -0.882 -1.972  24.694 -30.705    4.01   
+3433  160813\_135815  7.491 -126.665 -5.862 -6.393  21.952 -32.121    4.01   
+3434  160813\_135752  1.254 -116.062  0.439  5.184  21.328 -39.866    4.01   
+3435  160813\_135736  5.994 -135.497 -6.736 -9.360  26.782 -13.446    4.01   
+
+      sz\_bot  hit\_distance\_sc  launch\_speed  launch\_angle  effective\_speed  \textbackslash{}
+3431    1.82              NaN           NaN           NaN           84.459   
+3432    1.82            446.0         108.8        27.410           86.412   
+3433    1.82              NaN           NaN           NaN           86.368   
+3434    1.82              9.0          55.8       -24.973           77.723   
+3435    1.82              NaN           NaN           NaN           92.696   
+
+      release\_spin\_rate  release\_extension  game\_pk  pos1\_person\_id  \textbackslash{}
+3431             1552.0              5.683   448611        542882.0   
+3432             1947.0              5.691   448611        542882.0   
+3433             1761.0              5.721   448611        542882.0   
+3434             2640.0              5.022   448611        542882.0   
+3435             2271.0              6.068   448611        542882.0   
+
+      pos2\_person\_id.1  pos3\_person\_id  pos4\_person\_id  pos5\_person\_id  \textbackslash{}
+3431          571912.0        543543.0        523253.0        446334.0   
+3432          571912.0        543543.0        523253.0        446334.0   
+3433          571912.0        543543.0        523253.0        446334.0   
+3434          571912.0        543543.0        523253.0        446334.0   
+3435          571912.0        543543.0        523253.0        446334.0   
+
+      pos6\_person\_id  pos7\_person\_id  pos8\_person\_id  pos9\_person\_id  \textbackslash{}
+3431        622110.0        545338.0        595281.0        543484.0   
+3432        622110.0        545338.0        595281.0        543484.0   
+3433        622110.0        545338.0        595281.0        543484.0   
+3434        622110.0        545338.0        595281.0        543484.0   
+3435        622110.0        545338.0        595281.0        543484.0   
+
+      release\_pos\_y  estimated\_ba\_using\_speedangle  \textbackslash{}
+3431        54.8144                           0.00   
+3432        54.8064                           0.98   
+3433        54.7770                           0.00   
+3434        55.4756                           0.00   
+3435        54.4299                           0.00   
+
+      estimated\_woba\_using\_speedangle  woba\_value  woba\_denom  babip\_value  \textbackslash{}
+3431                            0.000         NaN         NaN          NaN   
+3432                            1.937         2.0         1.0          0.0   
+3433                            0.000         NaN         NaN          NaN   
+3434                            0.000         NaN         NaN          NaN   
+3435                            0.000         NaN         NaN          NaN   
+
+      iso\_value  launch\_speed\_angle  at\_bat\_number  pitch\_number  
+3431        NaN                 NaN             36             1  
+3432        3.0                 6.0             14             4  
+3433        NaN                 NaN             14             3  
+3434        NaN                 1.0             14             2  
+3435        NaN                 NaN             14             1  
+
+    \end{Verbatim}
+
+    \hypertarget{aaron-judge-and-giancarlo-stanton-prolific-sluggers}{%
+\subsection{3. Aaron Judge and Giancarlo Stanton, prolific
+sluggers}\label{aaron-judge-and-giancarlo-stanton-prolific-sluggers}}
+
+This is Giancarlo Stanton. He is also a very large human being, standing
+6 feet 6 inches tall and weighing 245 pounds. Despite not wearing the
+same jersey as Judge in the pictures provided, in 2018 they will be
+teammates on the New York Yankees. They are similar in a lot of ways,
+one being that they hit a lot of home runs. Stanton and Judge led
+baseball in home runs in 2017, with 59 and 52, respectively. These are
+exceptional totals - the player in third ``only'' had 45 home runs.
+
+Stanton and Judge are also different in many ways. One is batted ball
+events, which is any batted ball that produces a result. This includes
+outs, hits, and errors. Next, you'll find the counts of batted ball
+events for each player in 2017. The frequencies of other events are
+quite different.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} All of Aaron Judge\PYZsq{}s batted ball events in 2017}
+        \PY{n}{judge\PYZus{}events\PYZus{}2017} \PY{o}{=} \PY{n}{judge}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{judge}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{game\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2017}\PY{p}{]}\PY{o}{.}\PY{n}{events}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Aaron Judge batted ball event totals, 2017: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{judge\PYZus{}events\PYZus{}2017}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} All of Giancarlo Stanton\PYZsq{}s batted ball events in 2017}
+        \PY{n}{stanton\PYZus{}events\PYZus{}2017} \PY{o}{=} \PY{n}{stanton}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{stanton}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{game\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2017}\PY{p}{]}\PY{o}{.}\PY{n}{events}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Giancarlo Stanton batted ball event totals, 2017: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{stanton\PYZus{}events\PYZus{}2017}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Aaron Judge batted ball event totals, 2017: 
+strikeout                    207
+field\_out                    146
+walk                         116
+single                        75
+home\_run                      52
+double                        24
+grounded\_into\_double\_play     15
+force\_out                     11
+intent\_walk                   11
+hit\_by\_pitch                   5
+fielders\_choice\_out            4
+field\_error                    4
+sac\_fly                        4
+triple                         3
+strikeout\_double\_play          1
+Name: events, dtype: int64
+
+Giancarlo Stanton batted ball event totals, 2017: 
+field\_out                    239
+strikeout                    161
+single                        77
+walk                          72
+home\_run                      59
+double                        32
+grounded\_into\_double\_play     13
+intent\_walk                   13
+hit\_by\_pitch                   7
+force\_out                      7
+field\_error                    5
+sac\_fly                        3
+fielders\_choice\_out            2
+strikeout\_double\_play          2
+pickoff\_1b                     1
+Name: events, dtype: int64
+
+    \end{Verbatim}
+
+    \hypertarget{analyzing-home-runs-with-statcast-data}{%
+\subsection{4. Analyzing home runs with Statcast
+data}\label{analyzing-home-runs-with-statcast-data}}
+
+So Judge walks and strikes out more than Stanton. Stanton flies out more
+than Judge. But let's get into their hitting profiles in more detail.
+Two of the most groundbreaking Statcast metrics are launch angle and
+exit velocity:
+
+Launch angle: the vertical angle at which the ball leaves a player's bat
+
+Exit velocity: the speed of the baseball as it comes off the bat
+
+This new data has changed the way teams value both hitters and pitchers.
+Why? As per the Washington Post:
+
+Balls hit with a high launch angle are more likely to result in a hit.
+Hit fast enough and at the right angle, they become home runs.
+
+Let's look at exit velocity vs.~launch angle and let's focus on home
+runs only (2015-2017). The first two plots show data points. The second
+two show smoothed contours to represent density.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Filter to include home runs only}
+        \PY{n}{judge\PYZus{}hr} \PY{o}{=} \PY{n}{judge}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{judge}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{game\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{2015}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{judge}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{game\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{2017}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{judge}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{events}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{home\PYZus{}run}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+        \PY{n}{stanton\PYZus{}hr} \PY{o}{=} \PY{n}{stanton}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{stanton}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{game\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{2015}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{stanton}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{game\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{2017}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{stanton}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{events}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{home\PYZus{}run}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Create a figure with two scatter plots of launch speed vs. launch angle, one for each player\PYZsq{}s home runs}
+        \PY{n}{fig1}\PY{p}{,} \PY{n}{axs1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{judge\PYZus{}hr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{launch\PYZus{}speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{judge\PYZus{}hr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{launch\PYZus{}angle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{fit\PYZus{}reg}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tab:blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{judge\PYZus{}hr}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axs1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aaron Judge}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Home Runs, 2015\PYZhy{}2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{stanton\PYZus{}hr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{launch\PYZus{}speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{stanton\PYZus{}hr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{launch\PYZus{}angle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{fit\PYZus{}reg}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tab:blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{stanton\PYZus{}hr}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axs1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Giancarlo Stanton}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Home Runs, 2015\PYZhy{}2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Create a figure with two KDE plots of launch speed vs. launch angle, one for each player\PYZsq{}s home runs}
+        \PY{n}{fig2}\PY{p}{,} \PY{n}{axs2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{(}\PY{n}{judge\PYZus{}hr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{launch\PYZus{}speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{judge\PYZus{}hr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{launch\PYZus{}angle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Blues}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{shade}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{shade\PYZus{}lowest}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axs2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aaron Judge}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Home Runs, 2015\PYZhy{}2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{(}\PY{n}{stanton\PYZus{}hr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{launch\PYZus{}speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{stanton\PYZus{}hr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{launch\PYZus{}angle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Blues}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{shade}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{shade\PYZus{}lowest}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{axs2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Giancarlo Stanton}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Home Runs, 2015\PYZhy{}2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/home/smcdnyc/anaconda3/lib/python3.7/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} Text(0.5,1,'Giancarlo Stanton\textbackslash{}nHome Runs, 2015-2017')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{home-runs-by-pitch-velocity}{%
+\subsection{5. Home runs by pitch
+velocity}\label{home-runs-by-pitch-velocity}}
+
+It appears that Stanton hits his home runs slightly lower and slightly
+harder than Judge, though this needs to be taken with a grain of salt
+given the small sample size of home runs.
+
+Not only does Statcast measure the velocity of the ball coming off of
+the bat, it measures the velocity of the ball coming out of the
+pitcher's hand and begins its journey towards the plate. We can use this
+data to compare Stanton and Judge's home runs in terms of pitch
+velocity. Next you'll find box plots displaying the five-number
+summaries for each player: minimum, first quartile, median, third
+quartile, and maximum.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Combine the Judge and Stanton home run DataFrames for easy boxplot plotting}
+        \PY{n}{judge\PYZus{}stanton\PYZus{}hr} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{judge\PYZus{}hr}\PY{p}{,} \PY{n}{stanton\PYZus{}hr}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Create a boxplot that describes the pitch velocity of each player\PYZsq{}s home runs}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{judge\PYZus{}stanton\PYZus{}hr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{player\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{judge\PYZus{}stanton\PYZus{}hr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{release\PYZus{}speed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tab:blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home Runs, 2015\PYZhy{}2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} Text(0.5,1,'Home Runs, 2015-2017')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{home-runs-by-pitch-location-i}{%
+\subsection{6. Home runs by pitch location
+(I)}\label{home-runs-by-pitch-location-i}}
+
+So Judge appears to hit his home runs off of faster pitches than
+Stanton. We might call Judge a fastball hitter. Stanton appears agnostic
+to pitch speed and likely pitch movement since slower pitches
+(e.g.~curveballs, sliders, and changeups) tend to have more break.
+Statcast does track pitch movement and type but let's move on to
+something else: pitch location. Statcast tracks the zone the pitch is in
+when it crosses the plate. The zone numbering looks like this (from the
+catcher's point of view):
+
+We can plot this using a 2D histogram. For simplicity, let's only look
+at strikes, which gives us a 9x9 grid. We can view each zone as
+coordinates on a 2D plot, the bottom left corner being (1,1) and the top
+right corner being (3,3). Let's set up a function to assign
+x-coordinates to each pitch.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{assign\PYZus{}x\PYZus{}coord}\PY{p}{(}\PY{n}{row}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Assigns an x\PYZhy{}coordinate to Statcast\PYZsq{}s strike zone numbers. Zones 11, 12, 13,}
+        \PY{l+s+sd}{    and 14 are ignored for plotting simplicity.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{c+c1}{\PYZsh{} Left third of strike zone}
+            \PY{k}{if} \PY{n}{row}\PY{o}{.}\PY{n}{zone} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}\PY{p}{:}
+                \PY{k}{return} \PY{l+m+mi}{1}
+            \PY{c+c1}{\PYZsh{} Middle third of strike zone}
+            \PY{k}{if} \PY{n}{row}\PY{o}{.}\PY{n}{zone} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{]}\PY{p}{:}
+                \PY{k}{return} \PY{l+m+mi}{2}
+            \PY{c+c1}{\PYZsh{} Right third of strike zone}
+            \PY{k}{if} \PY{n}{row}\PY{o}{.}\PY{n}{zone} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{]}\PY{p}{:}
+                \PY{k}{return} \PY{l+m+mi}{3}
+\end{Verbatim}
+
+
+    \hypertarget{home-runs-by-pitch-location-ii}{%
+\subsection{7. Home runs by pitch location
+(II)}\label{home-runs-by-pitch-location-ii}}
+
+And let's do the same but for y-coordinates.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{assign\PYZus{}y\PYZus{}coord}\PY{p}{(}\PY{n}{row}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Assigns a y\PYZhy{}coordinate to Statcast\PYZsq{}s strike zone numbers. Zones 11, 12, 13,}
+        \PY{l+s+sd}{    and 14 are ignored for plotting simplicity.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{c+c1}{\PYZsh{} Upper third of strike zone}
+            \PY{k}{if} \PY{n}{row}\PY{o}{.}\PY{n}{zone} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{:}
+                \PY{k}{return} \PY{l+m+mi}{3}
+            \PY{c+c1}{\PYZsh{} Middle third of strike zone}
+            \PY{k}{if} \PY{n}{row}\PY{o}{.}\PY{n}{zone} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{]}\PY{p}{:}
+                \PY{k}{return} \PY{l+m+mi}{2}
+            \PY{c+c1}{\PYZsh{} Lower third of strike zone}
+            \PY{k}{if} \PY{n}{row}\PY{o}{.}\PY{n}{zone} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{]}\PY{p}{:}
+                \PY{k}{return} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \hypertarget{aaron-judges-home-run-zone}{%
+\subsection{8. Aaron Judge's home run
+zone}\label{aaron-judges-home-run-zone}}
+
+Now we can apply the functions we've created then construct our 2D
+histograms. First, for Aaron Judge (again, for pitches in the strike
+zone that resulted in home runs).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Zones 11, 12, 13, and 14 are to be ignored for plotting simplicity}
+        \PY{n}{judge\PYZus{}strike\PYZus{}hr} \PY{o}{=} \PY{n}{judge\PYZus{}hr}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{judge\PYZus{}hr}\PY{o}{.}\PY{n}{zone} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{9}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Assign Cartesian coordinates to pitches in the strike zone for Judge home runs}
+        \PY{n}{judge\PYZus{}strike\PYZus{}hr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{judge\PYZus{}strike\PYZus{}hr}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{assign\PYZus{}x\PYZus{}coord}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{judge\PYZus{}strike\PYZus{}hr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{judge\PYZus{}strike\PYZus{}hr}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{assign\PYZus{}y\PYZus{}coord}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Plot Judge\PYZsq{}s home run zone as a 2D histogram with a colorbar}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{hist2d}\PY{p}{(}\PY{n}{judge\PYZus{}strike\PYZus{}hr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{judge\PYZus{}strike\PYZus{}hr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Blues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aaron Judge Home Runs on}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ Pitches in the Strike Zone, 2015\PYZhy{}2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}xaxis}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}yaxis}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{cb} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+        \PY{n}{cb}\PY{o}{.}\PY{n}{set\PYZus{}label}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Counts in Bin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{giancarlo-stantons-home-run-zone}{%
+\subsection{9. Giancarlo Stanton's home run
+zone}\label{giancarlo-stantons-home-run-zone}}
+
+And now for Giancarlo Stanton.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} Zones 11, 12, 13, and 14 are to be ignored for plotting simplicity}
+        \PY{n}{stanton\PYZus{}strike\PYZus{}hr} \PY{o}{=} \PY{n}{stanton\PYZus{}hr}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{stanton\PYZus{}hr}\PY{o}{.}\PY{n}{zone} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{9}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Assign Cartesian coordinates to pitches in the strike zone for Stanton home runs}
+        \PY{n}{stanton\PYZus{}strike\PYZus{}hr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{stanton\PYZus{}strike\PYZus{}hr}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{assign\PYZus{}x\PYZus{}coord}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{stanton\PYZus{}strike\PYZus{}hr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{stanton\PYZus{}strike\PYZus{}hr}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{assign\PYZus{}y\PYZus{}coord}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Plot Stanton\PYZsq{}s home run zone as a 2D histogram with a colorbar}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{hist2d}\PY{p}{(}\PY{n}{stanton\PYZus{}strike\PYZus{}hr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{stanton\PYZus{}strike\PYZus{}hr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zone\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Blues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Giancarlo Stanton Home Runs on}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ Pitches in the Strike Zone, 2015\PYZhy{}2017}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}xaxis}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}yaxis}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{cb} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+        \PY{n}{cb}\PY{o}{.}\PY{n}{set\PYZus{}label}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Counts in Bin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{should-opposing-pitchers-be-scared}{%
+\subsection{10. Should opposing pitchers be
+scared?}\label{should-opposing-pitchers-be-scared}}
+
+A few takeaways:
+
+Stanton does not hit many home runs on pitches in the upper third of the
+strike zone.
+
+Like pretty much every hitter ever, both players love pitches in the
+horizontal and vertical middle of the plate.
+
+Judge's least favorite home run pitch appears to be high-away while
+Stanton's appears to be low-away.
+
+If we were to describe Stanton's home run zone, it'd be middle-inside.
+Judge's home run zone is much more spread out.
+
+The grand takeaway from this whole exercise: Aaron Judge and Giancarlo
+Stanton are not identical despite their superficial similarities. In
+terms of home runs, their launch profiles, as well as their pitch speed
+and location preferences, are different.
+
+Should opposing pitchers still be scared?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Should opposing pitchers be wary of Aaron Judge and Giancarlo Stanton}
+         \PY{n}{should\PYZus{}pitchers\PYZus{}be\PYZus{}scared} \PY{o}{=} \PY{k+kc}{True}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
