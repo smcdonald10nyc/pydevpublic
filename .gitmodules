@@ -1,0 +1,3 @@
+[submodule "DataCamp - New era of data analysis in baseball - SLIDES/reveal.js"]
+	path = DataCamp - New era of data analysis in baseball - SLIDES/reveal.js
+	url = https://github.com/hakimel/reveal.js.git
